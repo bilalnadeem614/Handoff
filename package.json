@@ -1,0 +1,26 @@
+{
+  "name": "handoff",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Handoff — a collaborative Kanban board where a human and their AI agent share task management via WebMCP.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hello-pangea/dnd": "^17.0.0",
+    "@mcp-b/global": "^5.1.0",
+    "@mcp-b/react-webmcp": "^5.1.0",
+    "@supabase/supabase-js": "^2.45.4",
+    "next": "^16.3.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^16.3.4"
+  }
+}

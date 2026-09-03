@@ -1,0 +1,185 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #14151a;
+  color: #e6e6e6;
+}
+
+.app-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.app-header h1 {
+  margin: 0 0 4px;
+  font-size: 28px;
+}
+
+.app-header p {
+  margin: 0 0 24px;
+  color: #9a9ea6;
+}
+
+.new-task-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.new-task-form input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2c2e36;
+  background: #1c1d24;
+  color: #e6e6e6;
+  font-size: 14px;
+}
+
+.new-task-form button {
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #5b8cff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.column {
+  background: #1a1b21;
+  border-radius: 12px;
+  padding: 12px;
+  min-height: 400px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #c7c9d1;
+  padding: 4px 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.column-count {
+  background: #2c2e36;
+  border-radius: 999px;
+  padding: 1px 8px;
+  font-size: 12px;
+  color: #9a9ea6;
+}
+
+.column-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 60px;
+  border-radius: 8px;
+  padding: 2px;
+  transition: background 0.15s ease;
+}
+
+.column-body.drag-over {
+  background: rgba(91, 140, 255, 0.08);
+}
+
+.task-card {
+  background: #23242c;
+  border: 1px solid #2c2e36;
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: grab;
+}
+
+.task-card-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.priority-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.agent-badge {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: rgba(91, 140, 255, 0.15);
+  color: #8fb0ff;
+  border-radius: 999px;
+  padding: 1px 8px;
+}
+
+.task-delete {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #6b6f78;
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.task-delete:hover {
+  color: #d1453b;
+}
+
+.task-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task-description {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #9a9ea6;
+}
+
+.board-loading {
+  padding: 40px;
+  text-align: center;
+  color: #9a9ea6;
+}
+
+/* Highlights cards the agent just created or moved, so it's visually
+   obvious in the demo video which actions came from the agent. */
+.agent-pulse {
+  animation: agentPulse 1.6s ease-out 1;
+}
+
+@keyframes agentPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(91, 140, 255, 0.6);
+    border-color: #5b8cff;
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(91, 140, 255, 0);
+    border-color: #2c2e36;
+  }
+}
+
+@media (max-width: 720px) {
+  .board {
+    grid-template-columns: 1fr;
+  }
+}
