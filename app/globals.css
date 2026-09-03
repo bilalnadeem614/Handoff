@@ -178,6 +178,66 @@ body {
   }
 }
 
+.activity-log {
+  margin-top: 20px;
+  background: #1a1b21;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.activity-log-header {
+  font-weight: 600;
+  font-size: 12px;
+  color: #9a9ea6;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 6px 10px;
+}
+
+.activity-log-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.activity-log-empty {
+  color: #6b6f78;
+  font-size: 12px;
+  padding: 4px 6px;
+}
+
+.activity-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 6px;
+}
+
+.activity-dot {
+  margin-top: 5px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8a8f98;
+  flex-shrink: 0;
+}
+
+.activity-dot-agent {
+  background: #5b8cff;
+}
+
+.activity-message {
+  font-size: 13px;
+  color: #c7c9d1;
+}
+
+.activity-time {
+  font-size: 11px;
+  color: #6b6f78;
+}
+
 @media (max-width: 720px) {
   .board {
     grid-template-columns: 1fr;

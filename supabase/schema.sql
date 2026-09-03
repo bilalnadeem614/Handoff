@@ -10,7 +10,7 @@ create table if not exists tasks (
   status text not null default 'todo' check (status in ('todo', 'in_progress', 'done')),
   priority text not null default 'medium' check (priority in ('low', 'medium', 'high')),
   source text not null default 'human' check (source in ('human', 'agent')),
-  position integer not null default 0,
+  position bigint not null default 0,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -29,8 +29,20 @@ create trigger tasks_set_updated_at
   before update on tasks
   for each row execute function set_updated_at();
 
--- Enable Realtime on this table
-alter publication supabase_realtime add table tasks;
+-- Send full row data on UPDATE/DELETE realtime events (default only sends
+-- the primary key for DELETE, which breaks payload.old.* consumers).
+alter table tasks replica identity full;
+
+-- Enable Realtime on this table (idempotent — errors if run twice otherwise)
+do $$
+begin
+  if not exists (
+    select 1 from pg_publication_tables
+    where pubname = 'supabase_realtime' and tablename = 'tasks'
+  ) then
+    alter publication supabase_realtime add table tasks;
+  end if;
+end $$;
 
 -- Hackathon-demo RLS: open read/write, no auth.
 -- NOTE: this is intentionally permissive for judging convenience.

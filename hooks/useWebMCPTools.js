@@ -20,6 +20,7 @@ export function useWebMCPTools({
   moveTask,
   deleteTask,
   listTasks,
+  prioritizeTasks,
 }) {
   useWebMCP({
     name: "create_task",
@@ -127,6 +128,36 @@ export function useWebMCPTools({
       await deleteTask(id);
       return {
         content: [{ type: "text", text: `Deleted task ${id}.` }],
+      };
+    },
+  });
+
+  useWebMCP({
+    name: "prioritize_tasks",
+    description:
+      "Apply a batch of priority (and optional reorder) changes decided by the calling agent. " +
+      "The agent has already reasoned about priority using list_tasks — this tool just applies " +
+      "the changes atomically, it does not decide priority itself.",
+    schema: z.object({
+      updates: z
+        .array(
+          z.object({
+            id: z.string().describe("The task's id"),
+            priority: z.enum(["low", "medium", "high"]),
+            position: z
+              .number()
+              .optional()
+              .describe("Optional new position, for reordering within a column"),
+          })
+        )
+        .describe("Batch of priority updates to apply"),
+    }),
+    handler: async ({ updates }) => {
+      await prioritizeTasks(updates);
+      return {
+        content: [
+          { type: "text", text: `Reprioritized ${updates.length} task(s).` },
+        ],
       };
     },
   });

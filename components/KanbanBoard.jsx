@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import Column from "./Column";
+import ActivityLog from "./ActivityLog";
 import { useTasks } from "../hooks/useTasks";
 import { useWebMCPTools } from "../hooks/useWebMCPTools";
 
@@ -13,14 +14,30 @@ const COLUMNS = [
 ];
 
 export default function KanbanBoard() {
-  const { tasks, loading, createTask, updateTask, moveTask, deleteTask, listTasks } =
-    useTasks();
+  const {
+    tasks,
+    loading,
+    createTask,
+    updateTask,
+    moveTask,
+    deleteTask,
+    listTasks,
+    prioritizeTasks,
+    activityLog,
+  } = useTasks();
   const [newTitle, setNewTitle] = useState("");
 
   // Registers create_task / list_tasks / move_task / update_task /
-  // delete_task / summarize_board as WebMCP tools, wired to the same
-  // shared state the UI below uses.
-  useWebMCPTools({ createTask, updateTask, moveTask, deleteTask, listTasks });
+  // delete_task / prioritize_tasks / summarize_board as WebMCP tools,
+  // wired to the same shared state the UI below uses.
+  useWebMCPTools({
+    createTask,
+    updateTask,
+    moveTask,
+    deleteTask,
+    listTasks,
+    prioritizeTasks,
+  });
 
   const handleDragEnd = async (result) => {
     const { destination, source, draggableId } = result;
@@ -70,6 +87,8 @@ export default function KanbanBoard() {
           ))}
         </div>
       </DragDropContext>
+
+      <ActivityLog entries={activityLog} />
     </div>
   );
 }
