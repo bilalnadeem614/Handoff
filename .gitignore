@@ -8,3 +8,4 @@ npm-debug.log*
 .DS_Store
 *.md
 !README.md
+graphify-out/*
