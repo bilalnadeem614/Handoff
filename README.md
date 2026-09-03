@@ -13,8 +13,15 @@ Without WebMCP, an agent that wants to manage your tasks either needs a
 bespoke API integration or has to click around the page like a bot. With
 WebMCP, this app exposes its task actions directly as tools an agent can
 discover and call — `create_task`, `move_task`, `update_task`,
-`delete_task`, `list_tasks`, `summarize_board` — so "reorganize my sprint by
-priority" just works, live, in the same UI a human is looking at.
+`delete_task`, `list_tasks`, `summarize_board`, `prioritize_tasks` — so
+"reorganize my sprint by priority" just works, live, in the same UI a human
+is looking at. `prioritize_tasks` takes a batch of priority changes the
+agent has already decided on (via `list_tasks`) and applies them
+atomically — the reasoning happens agent-side, this tool just executes it.
+
+An **activity log** shows the most recent ~20 changes to the board and
+whether each came from the agent or the human, so the human/agent handoff
+has a clear real-time audit trail.
 
 ## Stack
 
@@ -57,16 +64,18 @@ Open the app in one of those environments, then ask your agent things like:
 - "Add a task to buy milk, high priority"
 - "Move the 'buy milk' task to in progress"
 - "Summarize the board"
+- "Reprioritize the board so bug fixes are high priority"
 
 Tasks the agent creates or moves will show an **"agent"** badge and a brief
 highlight pulse, so it's visually clear which actions came from the agent
-vs. the human.
+vs. the human. The activity log should update alongside the board as these
+run.
 
 ## Deployment
 
-Deploy to [Vercel](https://vercel.com):
+Deploy to [Vercel](https://handoff-webmcp.vercel.app/):
 ```bash
-vercel
+https://handoff-webmcp.vercel.app/
 ```
 Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` as
 environment variables in the Vercel project settings (same values as
